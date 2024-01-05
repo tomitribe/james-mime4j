@@ -19,10 +19,11 @@
 
 package org.apache.james.mime4j.stream;
 
+
+import junit.framework.Assert;
 import org.apache.james.mime4j.util.ByteSequence;
 import org.apache.james.mime4j.util.ContentUtil;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class RawFieldTest extends TestCase {
@@ -44,11 +45,11 @@ public class RawFieldTest extends TestCase {
         Assert.assertEquals("stuff", field1.getBody());
         Assert.assertEquals("raw: stuff", field1.toString());
 
-        RawField field2 = new RawField("raw", null);
+        RawField field2 = new RawField("raw", "any");
         Assert.assertNull(field2.getRaw());
         Assert.assertEquals("raw", field2.getName());
-        Assert.assertEquals(null, field2.getBody());
-        Assert.assertEquals("raw: ", field2.toString());
+        Assert.assertEquals("any", field2.getBody());
+        Assert.assertEquals("raw: any", field2.toString());
     }
 
     public void testTabAfterDelimiter() throws Exception {
@@ -60,5 +61,54 @@ public class RawFieldTest extends TestCase {
         Assert.assertEquals("stuff;  more stuff", field.getBody());
         Assert.assertEquals(s, field.toString());
     }
-    
+
+    public void testShouldRejectAmbiguousLineEnding() {
+        try {
+            new RawField("Name", "Value\r\ncheating");
+            Assert.fail("Expected exception not thrown");
+        } catch (IllegalArgumentException e) {
+
+        }
+    }
+
+    public void testShouldAcceptCRLFTerminatedHeader() {
+        try {
+            new RawField("Name", "Value\r\n");
+        } catch (Exception e) {
+            Assert.fail("Exception should not thrown");
+        }
+    }
+
+    public void testShouldAcceptTabFolding() {
+        try {
+            new RawField("Name", "Value\r\n\thello");
+        } catch (Exception e) {
+            Assert.fail("Exception should not thrown");
+        }
+    }
+
+    public void testShouldAcceptSpaceFolding() {
+        try {
+            new RawField("Name", "Value\r\n hello");
+        } catch (Exception e) {
+            Assert.fail("Exception should not thrown");
+        }
+    }
+
+    public void testShouldAcceptOnlyDelimiter() {
+        try {
+            new RawField("Name", "\r\n");
+        } catch (Exception e) {
+            Assert.fail("Exception should not thrown");
+        }
+    }
+
+
+    public void testShouldAcceptNoDelimiter() {
+        try {
+            new RawField("Name", "Value");
+        } catch (Exception e) {
+            Assert.fail("Exception should not thrown");
+        }
+    }
 }
