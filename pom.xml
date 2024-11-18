@@ -132,6 +132,36 @@
                         <arguments>-Papache-release</arguments>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.8</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <excludePackageNames>org.apache.james.mime4j.field.address.parser:org.apache.james.mime4j.field.contentdisposition.parser:org.apache.james.mime4j.field.contenttype.parser:org.apache.james.mime4j.field.datetime.parser:org.apache.james.mime4j.field.language.parser:org.apache.james.mime4j.field.mimeversion.parser:org.apache.james.mime4j.field.structured.parser</excludePackageNames>
+                        <linksource>true</linksource>
+                        <maxmemory>1g</maxmemory>
+                        <minmemory>256m</minmemory>
+                        <source>1.5</source>
+                        <tags>
+                            <tag>
+                                <name>note</name>
+                                <placement>a</placement>
+                                <head>NOTE</head>
+                            </tag>
+                            <tag>
+                                <name>todo</name>
+                                <placement>a</placement>
+                                <head>TODO</head>
+                            </tag>
+                            <tag>
+                                <name>warning</name>
+                                <placement>a</placement>
+                                <head>WARNING</head>
+                            </tag>
+                        </tags>
+                        <additionalparam>-Xdoclint:none</additionalparam>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
