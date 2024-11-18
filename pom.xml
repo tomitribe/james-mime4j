@@ -46,20 +46,37 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mime4j/tags/apache-mime4j-project-0.7.2</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mime4j/tags/apache-mime4j-project-0.7.2</developerConnection>
-        <url>http://svn.apache.org/viewvc/james/mime4j/tags/apache-mime4j-project-0.7.2</url>
+        <connection>scm:git:git@github.com:tomitribe/james-mime4j.git</connection>
+        <developerConnection>scm:git:git@github.com:tomitribe/james-mime4j.git</developerConnection>
+        <url>scm:git:git@github.com:tomitribe/james-mime4j.git</url>
+        <tag>HEAD</tag>
     </scm>
+
     <issueManagement>
         <url>http://issues.apache.org/jira/browse/MIME4J</url>
     </issueManagement>
 
     <distributionManagement>
-        <site>
-            <id>mime4j-website</id>
-            <url>scpexe://people.apache.org/www/james.apache.org/mime4j/</url>
-        </site>
+        <repository>
+            <id>tomitribe.releases.https</id>
+            <name>Tomitribe Release Distribution Repository</name>
+            <url>https://repository.tomitribe.com/service/local/staging/deploy/maven2</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>tomitribe.snapshots.https</id>
+            <name>Tomitribe Development Snapshot Repository</name>
+            <url>https://repository.tomitribe.com/content/repositories/snapshots-tomitribe</url>
+        </snapshotRepository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>tomitribe-all</id>
+            <name>Tomitribe Repository</name>
+            <url>https://repository.tomitribe.com/content/groups/tomitribe/</url>
+        </repository>
+    </repositories>
 
     <properties>
         <target.jdk>1.5</target.jdk>
